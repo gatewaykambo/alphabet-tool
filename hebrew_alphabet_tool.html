@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hebrew Alphabet — Golden Dawn Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Hebrew:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06030f;--bg2:#0d0820;--surface:#120d24;--surface2:#1a1332;
+  --gold:#c9a84c;--gold-b:#e8c96a;--gold-d:rgba(201,168,76,0.25);
+  --crimson:#8b1a1a;--crimson-b:#c0392b;
+  --text:#e8dfc8;--text-d:#9a8e7a;--text-m:#5a5248;
+  --mc:#c0392b;--dc:#c9a84c;--sc:#2471a3;
+  --bdr:rgba(201,168,76,0.2);--bdr-b:rgba(201,168,76,0.45);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Crimson Pro','Georgia',serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(60,20,100,0.25) 0%,transparent 60%);pointer-events:none;z-index:0}
+#app{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 18px}
+
+/* HEADER */
+.hdr{text-align:center;padding:38px 20px 18px;border-bottom:1px solid var(--bdr);margin-bottom:4px}
+.hdr-title{font-family:'Cinzel Decorative','Cinzel',serif;font-size:clamp(1.3rem,4vw,2rem);color:var(--gold-b);letter-spacing:.08em;text-shadow:0 0 50px rgba(201,168,76,.35);margin-bottom:5px}
+.hdr-sub{font-size:.9rem;color:var(--text-d);font-style:italic;letter-spacing:.05em}
+
+/* NAV */
+.nav{display:flex;justify-content:center;gap:6px;padding:14px 0 22px;flex-wrap:wrap}
+.nb{background:transparent;border:1px solid var(--bdr);color:var(--text-d);padding:8px 26px;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.12em;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.nb:hover,.nb.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06)}
+
+/* FILTER BAR */
+.fb{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.fl{font-size:.72rem;color:var(--text-m);font-family:'Cinzel',serif;letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+.fp{background:transparent;border:1px solid var(--bdr);color:var(--text-d);padding:5px 13px;font-size:.72rem;letter-spacing:.08em;cursor:pointer;font-family:'Cinzel',serif;transition:all .2s;text-transform:uppercase;border-radius:1px}
+.fp.fa{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08)}
+.fp.fm{border-color:var(--mc);color:var(--mc);background:rgba(192,57,43,.08)}
+.fp.fd{border-color:var(--dc);color:var(--dc);background:rgba(201,168,76,.08)}
+.fp.fs{border-color:var(--sc);color:var(--sc);background:rgba(36,113,163,.08)}
+
+/* LETTER GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:9px;padding-bottom:44px}
+.lc{background:var(--surface);border:1px solid var(--bdr);cursor:pointer;padding:15px 9px 13px;text-align:center;transition:all .2s;position:relative;overflow:hidden}
+.lc:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.55)}
+.lc.mother{border-color:rgba(192,57,43,.35)}.lc.double{border-color:rgba(201,168,76,.35)}.lc.simple{border-color:rgba(36,113,163,.35)}
+.lc.mother:hover{border-color:var(--mc);box-shadow:0 8px 28px rgba(192,57,43,.18)}
+.lc.double:hover{border-color:var(--dc);box-shadow:0 8px 28px rgba(201,168,76,.18)}
+.lc.simple:hover{border-color:var(--sc);box-shadow:0 8px 28px rgba(36,113,163,.18)}
+.ccs{position:absolute;top:0;left:0;right:0;height:3px}
+.lc.mother .ccs{background:var(--mc)}.lc.double .ccs{background:var(--dc)}.lc.simple .ccs{background:var(--sc)}
+.ch{font-family:'Noto Serif Hebrew','Times New Roman',serif;font-size:2.7rem;font-weight:700;line-height:1.1;margin-bottom:5px}
+.lc.mother .ch{color:var(--mc)}.lc.double .ch{color:var(--dc)}.lc.simple .ch{color:var(--sc)}
+.cn{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.1em;color:var(--text);text-transform:uppercase;margin-bottom:2px}
+.ca{font-size:.7rem;color:var(--text-d);font-style:italic}
+.cv{position:absolute;bottom:5px;right:7px;font-size:.62rem;font-family:'Cinzel',serif;color:var(--text-m)}
+.mb{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:#27ae60;box-shadow:0 0 6px rgba(39,174,96,.6)}
+
+/* LEGEND */
+.leg{display:flex;gap:16px;font-size:.73rem;color:var(--text-m);flex-wrap:wrap;margin-bottom:10px;align-items:center}
+
+/* DETAIL */
+.dn{display:flex;gap:8px;margin-bottom:18px;align-items:center}
+.bb{background:transparent;border:1px solid var(--bdr);color:var(--text-d);padding:8px 16px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s}
+.bb:hover{border-color:var(--gold);color:var(--gold)}
+.lnb{background:transparent;border:1px solid var(--bdr);color:var(--text-d);width:34px;height:34px;font-size:.9rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.lnb:hover{border-color:var(--gold);color:var(--gold)}
+.dp{font-family:'Cinzel',serif;font-size:.68rem;color:var(--text-m);letter-spacing:.1em;flex:1;text-align:center}
+
+.dc{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-bottom:44px}
+@media(max-width:680px){.dc{grid-template-columns:1fr}}
+
+.dh{background:var(--surface);padding:28px 18px;text-align:center;position:relative;margin-bottom:0}
+.d-heb{font-family:'Noto Serif Hebrew','Times New Roman',serif;font-size:6.5rem;font-weight:900;line-height:1;filter:drop-shadow(0 0 24px currentColor);margin-bottom:7px}
+.d-name{font-family:'Cinzel Decorative','Cinzel',serif;font-size:1.35rem;color:var(--gold);letter-spacing:.08em;margin-bottom:3px}
+.d-mean{font-size:.88rem;color:var(--text-d);font-style:italic}
+.d-snd{margin-top:10px;font-size:.83rem;color:var(--text-d)}
+.se{display:inline-block;background:rgba(201,168,76,.1);border:1px solid var(--gold-d);color:var(--gold);padding:2px 10px;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;margin-left:5px}
+.catb{display:inline-block;padding:4px 15px;font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid;margin-top:11px}
+.catb.mother{color:var(--mc);border-color:var(--mc);background:rgba(192,57,43,.08)}
+.catb.double{color:var(--dc);border-color:var(--dc);background:rgba(201,168,76,.08)}
+.catb.simple{color:var(--sc);border-color:var(--sc);background:rgba(36,113,163,.08)}
+.catd{font-size:.72rem;color:var(--text-m);margin-top:7px;font-style:italic;line-height:1.5;padding:0 8px}
+
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:0}
+.ai{background:var(--surface);border:1px solid var(--bdr);padding:9px 11px}
+.ai.hl{border-color:var(--gold-d);background:rgba(201,168,76,.04)}
+.al{font-family:'Cinzel',serif;font-size:.59rem;letter-spacing:.11em;text-transform:uppercase;color:var(--text-m);margin-bottom:3px}
+.av{font-size:.88rem;color:var(--text)}
+.ai.hl .av{color:var(--gold);font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.04em}
+
+.gdn{background:var(--surface);border-left:3px solid var(--gold);padding:13px 15px;font-style:italic;font-size:.87rem;color:var(--text-d);line-height:1.65;margin-top:0}
+
+.mst-btn{border:1px solid;padding:9px 20px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;width:100%;transition:all .2s;background:transparent;margin-top:0}
+
+/* WRITING SECTION */
+.ws{background:var(--surface);border:1px solid var(--bdr);padding:18px}
+.st{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.st::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+.cc{position:relative;width:320px;height:320px;margin:0 auto 14px;border:1px solid var(--bdr);background:var(--bg2);touch-action:none}
+.cc canvas{position:absolute;top:0;left:0}
+
+.ccc{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.ctb{background:transparent;border:1px solid var(--bdr);color:var(--text-d);padding:6px 14px;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s}
+.ctb:hover,.ctb.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.07)}
+
+.shi{font-size:.81rem;color:var(--text-d);line-height:1.75}
+.shi-row{display:flex;gap:9px;margin-bottom:3px}
+.shi-n{font-family:'Cinzel',serif;font-size:.7rem;color:var(--gold);min-width:18px;font-weight:600}
+
+/* QUICK REF */
+.qr{background:var(--surface);border:1px solid var(--bdr);padding:14px 16px}
+.qrl{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;color:var(--text-m);text-transform:uppercase;margin-bottom:9px}
+.qrg{display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:.8rem}
+.qrg .l{color:var(--text-d)}.qrg .v{color:var(--text)}
+
+/* QUIZ */
+.qc{max-width:700px;margin:0 auto;padding-bottom:44px}
+.qms{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap}
+.qmb{background:transparent;border:1px solid var(--bdr);color:var(--text-d);padding:7px 15px;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s}
+.qmb.on{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08)}
+.qsb{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding:9px 14px;background:var(--surface);border:1px solid var(--bdr);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;color:var(--text-d);flex-wrap:wrap;gap:8px}
+.sn{color:var(--gold);font-size:.95rem}
+
+/* FLASHCARD */
+.fcs{perspective:1200px;margin-bottom:22px;cursor:pointer}
+.fc{width:100%;min-height:300px;position:relative;transform-style:preserve-3d;transition:transform .5s ease}
+.fc.flipped{transform:rotateY(180deg)}
+.cff,.cfb{position:absolute;width:100%;min-height:300px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--bdr-b);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px}
+.cfb{transform:rotateY(180deg);justify-content:flex-start;padding:22px}
+.fl-ch{font-family:'Noto Serif Hebrew',serif;font-size:7rem;font-weight:900;line-height:1}
+.fl-p{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;color:var(--text-m);text-transform:uppercase;margin-top:14px}
+.b-name{font-family:'Cinzel Decorative','Cinzel',serif;font-size:1.3rem;color:var(--gold);text-align:center;width:100%;margin-bottom:9px}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;margin-top:8px}
+.ba{background:var(--bg2);padding:8px 10px;border:1px solid var(--bdr)}
+.bal{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--text-m);text-transform:uppercase}
+.bav{font-size:.87rem;color:var(--text);margin-top:2px}
+.fcc{display:flex;gap:9px;justify-content:center}
+.qb{padding:9px 26px;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid;background:transparent;transition:all .2s}
+.qb.ok{color:#27ae60;border-color:#27ae60}.qb.ok:hover{background:rgba(39,174,96,.1)}
+.qb.rev{color:var(--text-d);border-color:var(--bdr)}.qb.rev:hover{border-color:var(--gold);color:var(--gold)}
+.qb.nx{color:var(--gold);border-color:var(--gold)}.qb.nx:hover{background:rgba(201,168,76,.1)}
+
+/* MULTI CHOICE */
+.qq{background:var(--surface);border:1px solid var(--bdr-b);padding:28px;text-align:center;margin-bottom:18px}
+.ql{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.15em;color:var(--text-m);text-transform:uppercase;margin-bottom:10px}
+.qm{font-family:'Cinzel Decorative','Cinzel',serif;font-size:1.45rem;color:var(--gold);letter-spacing:.04em}
+.qs{font-size:.87rem;color:var(--text-d);font-style:italic;margin-top:5px}
+.q-heb{font-family:'Noto Serif Hebrew',serif;font-size:5rem;font-weight:900;line-height:1.1}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px}
+.cho{background:var(--surface);border:1px solid var(--bdr);color:var(--text);padding:15px;cursor:pointer;font-family:'Noto Serif Hebrew',serif;font-size:2.7rem;transition:all .15s;min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cho:hover:not(:disabled){border-color:var(--gold);background:rgba(201,168,76,.06)}
+.cho.ok{border-color:#27ae60;background:rgba(39,174,96,.12)}
+.cho.ng{border-color:var(--crimson-b);background:rgba(192,57,43,.12)}
+.cho.nc{font-family:'Cinzel',serif;font-size:.87rem;letter-spacing:.05em;min-height:58px}
+.chsub{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:var(--text-d);margin-top:3px;text-transform:uppercase}
+.ans{display:flex;gap:9px;justify-content:center;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.ans-txt{padding:9px 18px;font-size:.83rem}
+
+/* ANIMATIONS */
+@keyframes fi{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.fi{animation:fi .28s ease}
+@keyframes gp{0%,100%{text-shadow:0 0 18px rgba(201,168,76,.28)}50%{text-shadow:0 0 40px rgba(201,168,76,.6)}}
+.gp{animation:gp 2.2s ease-in-out infinite}
+@keyframes ph{0%,100%{opacity:.7}50%{opacity:1}}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px}
+@media(max-width:480px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}
+  .cc{width:280px;height:280px}
+  .cg{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="hdr">
+    <h1 class="hdr-title">◈ The Hebrew Alphabet ◈</h1>
+    <p class="hdr-sub">Golden Dawn Qabalistic Studies · 22 Letters of the Sepher Yetzirah</p>
+  </header>
+  <nav class="nav" id="mainNav"></nav>
+  <main id="main" class="fi"></main>
+</div>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────────
+const L = [
+  {char:'א',name:'Aleph',meaning:'Ox',sound:'Silent (breath)',trans:'A',val:1,cat:'mother',attr:'Air',attype:'element',
+   tarot:'The Fool',key:'0',path:11,from:'Kether',to:'Chokmah',
+   strokes:['Upper-right diagonal: begin upper-right, stroke down toward lower-left','Short center diagonal: small connecting stroke upper-left to lower-right','Lower-left diagonal: begin center-left, stroke down toward lower-right'],
+   note:'Aleph is the primal breath of creation — the divine exhalation before any sound exists. As the first Mother Letter, it precedes all other letters in cosmological significance. The Fool who steps off the cliff is Aleph: the divine spark leaping into manifestation without calculation, pure Air and pure trust.'},
+  {char:'ב',name:'Beth',meaning:'House',sound:'B (hard) / V (soft)',trans:'B/V',val:2,cat:'double',attr:'Mercury',attype:'planet',
+   tarot:'The Magician',key:'I',path:12,from:'Kether',to:'Binah',
+   strokes:['Top horizontal: stroke right along the top edge','Right vertical: descend from the right end of the top stroke','Bottom horizontal: stroke right along the base, slight foot at left'],
+   note:'Beth is the House — the first container, the dwelling in which the divine will begins its work. It is the first letter of Bereshit ("In the beginning"), the letter with which creation was spoken into existence. The Magician of Mercury stands at his table with all four elemental implements, working in the House that Beth has made.'},
+  {char:'ג',name:'Gimel',meaning:'Camel',sound:'G (hard)',trans:'G',val:3,cat:'double',attr:'Moon',attype:'planet',
+   tarot:'The High Priestess',key:'II',path:13,from:'Kether',to:'Tiphareth',
+   strokes:['Vertical downstroke: begin at the top, descend firmly and straight','Foot stroke: at the base, a short horizontal stroke extending right'],
+   note:'Gimel as the Camel crosses the Abyss — the vast desert between Kether and Tiphareth. This is the longest single path on the Tree, and the High Priestess guards its mystery. The Camel carries the waters of life across the wilderness; Gimel carries the aspirant across the threshold of the Supernal realm.'},
+  {char:'ד',name:'Daleth',meaning:'Door',sound:'D',trans:'D',val:4,cat:'double',attr:'Venus',attype:'planet',
+   tarot:'The Empress',key:'III',path:14,from:'Chokmah',to:'Binah',
+   strokes:['Top horizontal: a broad stroke extending right from the left corner','Right vertical: descend from the right end of the top stroke, with a slight serif at the base'],
+   note:'Daleth is the Door — the gate between Chokmah and Binah, the divine masculine and the divine feminine at the summit of the Tree. Venus opens this door: love is the hinge on which the supernal gate turns. The Empress who tends her garden is Daleth: the door into the garden of the divine world.'},
+  {char:'ה',name:'Heh',meaning:'Window',sound:'H',trans:'H',val:5,cat:'simple',attr:'Aries',attype:'zodiac',
+   tarot:'The Emperor',key:'IV',path:15,from:'Chokmah',to:'Tiphareth',
+   strokes:['Top horizontal: stroke across the full top','Right vertical: descend fully from the right end of the top stroke','Left inner stroke: a SEPARATE shorter vertical not touching the top bar — this gap is the Window'],
+   note:'Heh is the Window — the opening through which light and breath enter the house of Beth. The left inner stroke does not connect to the top bar: this disconnection is the Window itself, the gap through which the divine light passes. Compare carefully with Cheth (ח) where both verticals connect at the top.'},
+  {char:'ו',name:'Vav',meaning:'Nail / Hook',sound:'V / W',trans:'V',val:6,cat:'simple',attr:'Taurus',attype:'zodiac',
+   tarot:'The Hierophant',key:'V',path:16,from:'Chokmah',to:'Chesed',
+   strokes:['A single vertical stroke: begin with a slightly wider or heavier head at the top, then descend vertically — simplest of all letters'],
+   note:'Vav is the Nail or Hook — the connector, the pin that joins heaven to earth. As the third letter of the Tetragrammaton (Yod-Heh-VAV-Heh), Vav is the Son who bridges the divine parents. The Hierophant teaches through tradition: Vav is the nail that holds the living tradition together across generations.'},
+  {char:'ז',name:'Zain',meaning:'Sword',sound:'Z',trans:'Z',val:7,cat:'simple',attr:'Gemini',attype:'zodiac',
+   tarot:'The Lovers',key:'VI',path:17,from:'Binah',to:'Tiphareth',
+   strokes:['Top horizontal: a clear angular horizontal stroke at the top','Vertical descent: from the right end of the top stroke, descend cleanly — similar to Resh but top is thinner and more angular'],
+   note:'Zain is the Sword — the principle of discrimination, the Air-quality that separates and distinguishes. The Lovers (Gemini, the Twins) stand at the great crossroads: Zain is the sword that forces the choice. Study Zain alongside Resh and Daleth — three letters that are easily confused, each distinguished by subtle differences in their top stroke.'},
+  {char:'ח',name:'Cheth',meaning:'Fence',sound:'Ch (guttural)',trans:'Ch',val:8,cat:'simple',attr:'Cancer',attype:'zodiac',
+   tarot:'The Chariot',key:'VII',path:18,from:'Binah',to:'Geburah',
+   strokes:['Top horizontal: the connecting bar running fully across the top','Right vertical: descend fully from the right end','Left vertical: descend fully from the left end — BOTH sides connect at the top, closing the fence'],
+   note:'Cheth is the Fence — the enclosure that bounds and protects. The critical distinction from Heh: both verticals of Cheth connect at the top, enclosing the space completely. The Chariot of Cancer moves by containing opposing forces — two sphinxes pull in different directions, yet the charioteer holds them by will and equilibrium within Cheth\'s fence.'},
+  {char:'ט',name:'Teth',meaning:'Serpent',sound:'T (emphatic)',trans:'T',val:9,cat:'simple',attr:'Leo',attype:'zodiac',
+   tarot:'Strength',key:'VIII',path:19,from:'Chesed',to:'Geburah',
+   strokes:['Curved outer form: begin at upper left, curve right and arc downward','Complete the curve: arc left and upward, closing the form at the left','Inner curl: an inward-turning stroke at the top creating a coiled quality'],
+   note:'Teth is the Serpent — the coiled life force. The woman of Strength opens the lion\'s mouth not by force but by love: the serpent-power rises not through aggression but through the quality of heart. Teth\'s coiled form captures this: the serpent is contained, gathered, ready to rise. This is the spiritual Leo — solar force channeled through the heart.'},
+  {char:'י',name:'Yod',meaning:'Hand / Arm',sound:'Y',trans:'Y',val:10,cat:'simple',attr:'Virgo',attype:'zodiac',
+   tarot:'The Hermit',key:'IX',path:20,from:'Chesed',to:'Tiphareth',
+   strokes:['A single small floating mark: a slightly curved stroke with a heavier head at the top and a tapering tail below — the smallest of all letters, suspended above the baseline'],
+   note:'Yod is the smallest letter and the most sacred: every other Hebrew letter is constructed from Yods. It is the primal point, the divine spark, the Hand of God extended into creation. The Hermit\'s lantern contains a six-pointed star made of Yods. Yod is the first letter of the Tetragrammaton: the infinite compressed into a single point of pure intelligence.'},
+  {char:'כ',name:'Kaph',meaning:'Palm of Hand',sound:'K (hard) / Kh (soft)',trans:'K',val:20,cat:'double',attr:'Jupiter',attype:'planet',
+   tarot:'Wheel of Fortune',key:'X',path:21,from:'Chesed',to:'Netzach',
+   strokes:['Top horizontal: stroke right','Right curve: descend from the right end, curving left at the bottom leaving the base open','Compare with Beth: Beth closes at the bottom; Kaph leaves the base open like an open palm'],
+   note:'Kaph is the Palm — the open hand that both gives and receives. Jupiter\'s Wheel of Fortune spins on the open palm of providence. Where Beth is a closed house, Kaph is the open hand: receptive, generous, responsive to what arrives. The final form (ך) descends below the baseline, the extended hand reaching downward into matter.'},
+  {char:'ל',name:'Lamed',meaning:'Ox-goad',sound:'L',trans:'L',val:30,cat:'simple',attr:'Libra',attype:'zodiac',
+   tarot:'Justice',key:'XI',path:22,from:'Geburah',to:'Tiphareth',
+   strokes:['Vertical base: descend from the midline','Upper arm: from the top of the vertical, a curved arc rises upward and curves back to the right — Lamed is the only letter that rises above the text skyline'],
+   note:'Lamed is unique: the tallest letter, the only one that rises above the line of the text. It is the Ox-goad — the instrument that directs and motivates. Justice stands between Geburah and Tiphareth with sword and scales: Lamed reaches upward for the same perfect balance. In Kabbalistic teaching, Lamed is said to stand between the heavens above and the abyss below.'},
+  {char:'מ',name:'Mem',meaning:'Water',sound:'M',trans:'M',val:40,cat:'mother',attr:'Water',attype:'element',
+   tarot:'The Hanged Man',key:'XII',path:23,from:'Geburah',to:'Hod',
+   strokes:['Left vertical: descend','Top horizontal: connect left to right at the top','Right vertical: descend, with a small opening at the lower left — an open Mem flows','Final form (ם): both sides close at the bottom, fully sealed — the womb of the primordial waters'],
+   note:'Mem is Water itself — the only letter that literally names its own element. The Hanged Man is suspended in the great waters of Mem, breathing where breath should be impossible, seeing the world inverted. The open Mem (מ) has a gap at the base: water that flows. The final Mem (ם) is fully sealed: the primordial deep, undifferentiated and complete.'},
+  {char:'נ',name:'Nun',meaning:'Fish',sound:'N',trans:'N',val:50,cat:'simple',attr:'Scorpio',attype:'zodiac',
+   tarot:'Death',key:'XIII',path:24,from:'Tiphareth',to:'Netzach',
+   strokes:['Short vertical head: a brief vertical stroke at the top','Horizontal foot: a short stroke extending right at the base','Final form (ן): the vertical descends far below the baseline — the fish diving into the deep'],
+   note:'Nun is the Fish — always in motion, at home in the depths of the unconscious, never ceasing. Death (Scorpio) is the great transformer: the White Rose on the black banner, the sun rising between the towers. The fish does not die when it passes through water — it lives there. Nun teaches that what appears as ending is simply movement through a deeper medium.'},
+  {char:'ס',name:'Samekh',meaning:'Prop / Support',sound:'S',trans:'S',val:60,cat:'simple',attr:'Sagittarius',attype:'zodiac',
+   tarot:'Temperance',key:'XIV',path:25,from:'Tiphareth',to:'Yesod',
+   strokes:['Begin at the top right, curve continuously left and downward','Continue the curve around the bottom and back up to close the circle — Samekh is one of the few fully closed, circular letters'],
+   note:'Samekh is the Prop — the support that holds things in their proper place. This is the most important ascending path in the Outer Order: the direct line from Yesod to Tiphareth, from the astral body to the Higher Self. Temperance pours water between two cups in perfect balance. Samekh\'s closed circular form is the serpent Ouroboros — the self-sufficient support that needs nothing outside itself.'},
+  {char:'ע',name:'Ayin',meaning:'Eye',sound:'Silent (guttural)',trans:'O/A',val:70,cat:'simple',attr:'Capricorn',attype:'zodiac',
+   tarot:'The Devil',key:'XV',path:26,from:'Tiphareth',to:'Hod',
+   strokes:['Right arm: a slightly curving downward stroke from the shared apex, ending in a foot extending right','Left arm: a longer downward stroke from the same apex, descending more steeply, curving inward at the base — two strokes meeting at the top like an inverted V'],
+   note:'Ayin is the Eye — and the Eye of the Devil sees the material world with unvarnished clarity. This path leads from Tiphareth to Hod: the test of whether Higher Self consciousness can be maintained in the domain of pure rational matter. Ayin the Eye witnesses without flinching, without distortion. The Devil is not evil — it is the complete, unmediated perception of physical reality.'},
+  {char:'פ',name:'Peh',meaning:'Mouth',sound:'P (hard) / F (soft)',trans:'P/F',val:80,cat:'double',attr:'Mars',attype:'planet',
+   tarot:'The Tower',key:'XVI',path:27,from:'Netzach',to:'Hod',
+   strokes:['Outer form: like Kaph — top horizontal, right curve descending, open at lower left','Inner tooth: a small inward stroke on the upper interior right side — the distinguishing mark, Peh\'s tooth or beak inside the mouth'],
+   note:'Peh is the Mouth — the instrument of divine speech, both creative and destructive. Mars speaks through Peh, and what the Tower proclaims cannot be unsaid: the lightning-bolt word strikes the structure of false certainties. Peh resembles Kaph but contains an interior tooth — the mouth has teeth, and speech has consequence. Every divine name vibrated in ritual is an act of Peh.'},
+  {char:'צ',name:'Tzaddi',meaning:'Fish-hook',sound:'Tz',trans:'Tz',val:90,cat:'simple',attr:'Aquarius',attype:'zodiac',
+   tarot:'The Star',key:'XVII',path:28,from:'Netzach',to:'Yesod',
+   strokes:['Right base (Nun): begin with a Nun form on the right — short vertical with foot','Left crown (Yod): add a Yod stroke rising from the upper left, leaning over the Nun form','Read as: Yod riding upon Nun — the divine spark carried on the fish'],
+   note:'Tzaddi is the Fish-hook — it fishes what is hidden in the deep waters of Nun. The Aquarian Star pours spiritual water into Yesod\'s pool: Tzaddi hooks what the unconscious holds and draws it into the light. Look closely at Tzaddi\'s form: it is composed of Yod (the divine spark) riding upon Nun (the fish) — the soul carried upon the vehicle of the deep.'},
+  {char:'ק',name:'Qoph',meaning:'Back of Head',sound:'Q (strong K)',trans:'Q',val:100,cat:'simple',attr:'Pisces',attype:'zodiac',
+   tarot:'The Moon',key:'XVIII',path:29,from:'Netzach',to:'Malkuth',
+   strokes:['Circle: draw the rounded upper portion, open at the lower right side','Long descender: from the right of the circle, descend far below the baseline — Qoph\'s defining characteristic is its deep descent below the line'],
+   note:'Qoph means the Back of the Head — the part of the skull we cannot see, the unconscious at the back of awareness. The Moon illuminates the path between Netzach and Malkuth with cold, reflective, ambiguous light: the dogs bark at something the human eye cannot fully see. Qoph\'s descender goes deep below the line — into the earth, into the unconscious, into the territory the moon rules.'},
+  {char:'ר',name:'Resh',meaning:'Head',sound:'R',trans:'R',val:200,cat:'double',attr:'Sun',attype:'planet',
+   tarot:'The Sun',key:'XIX',path:30,from:'Hod',to:'Yesod',
+   strokes:['Top stroke: a slightly rounded, somewhat shorter horizontal at the top','Vertical descent: from the right end of the top, descend cleanly','Study alongside Daleth (ד): both are right-angle forms, but Resh has a rounder, slightly shorter top; Daleth\'s top is broader and more angular'],
+   note:'Resh is the Head — the solar head, the crown that radiates divine light. The Sun path from Hod to Yesod brings solar consciousness into the lunar-astral sphere: the child on horseback under the full sun, riding freely through Yesod. Resh and Daleth are easily confused — study both together. Resh is the rounded head; Daleth is the angular door.'},
+  {char:'ש',name:'Shin',meaning:'Tooth / Flame',sound:'Sh / S',trans:'Sh',val:300,cat:'mother',attr:'Fire',attype:'element',
+   tarot:'Judgement',key:'XX',path:31,from:'Hod',to:'Malkuth',
+   strokes:['Base: begin with the lower connecting stroke joining all three prongs','Left prong: ascend from the left of the base','Center prong: ascend from the center, rising highest of the three','Right prong: ascend from the right of the base — three flames rising'],
+   note:'Shin is the Tooth and the Flame — three tongues of fire rising from a single base, like a burning bush, a trident, or the sacred fire on the altar. Judgement sounds the trumpet over the rising dead: Shin is the final transforming fire that separates what is eternal from what is temporary. As the third Mother Letter (after Air and Water), Shin completes the elemental trinity.'},
+  {char:'ת',name:'Tau',meaning:'Mark / Cross',sound:'T / Th',trans:'T',val:400,cat:'double',attr:'Saturn',attype:'planet',
+   tarot:'The World',key:'XXI',path:32,from:'Yesod',to:'Malkuth',
+   strokes:['Right vertical: the taller vertical on the right, with a horizontal foot extending left at the base — the foot distinguishes Tau from Resh','Left arch or vertical: the left portion, often drawn as a curved arch meeting the right vertical at the top','Top crossbar: the connecting stroke across the top joining both sides'],
+   note:'Tau is the Mark — the last letter of the alphabet, the signature of completed creation, the Tau cross (T-shape) that is the oldest form of the cross in the Western tradition. As the first step of the initiatory ascent (Yesod to Malkuth), Tau is also the Zelator\'s own letter: the last letter is the first step. The dancing figure of The World moves freely within Tau\'s cross — the spirit dancing at the intersection of all four elements.'}
+];
+
+const CATD = {
+  mother:'One of three Mother Letters, corresponding to the three primary elements. These precede all others in cosmological significance — from Air, Water, and Fire, all existence is generated.',
+  double:'One of seven Double Letters, each carrying two phonetic values. Assigned to the seven classical planets, they embody the dual nature of each planetary force — its gift and its shadow.',
+  simple:'One of twelve Simple Letters, each with a single value. Assigned to the twelve signs of the Zodiac, they represent the twelve fundamental qualities of manifest existence.'
+};
+
+// ─── STATE ─────────────────────────────────────────────────────────────────────
+const S = {
+  view:'library', idx:0, filter:'all',
+  qmode:'flashcard', qrev:false, qqueue:[], qcur:0,
+  score:{c:0,t:0}, choices:[], answered:null,
+  mastered:new Set(), ghost:true,
+  drawing:false, lx:0, ly:0,
+  dCtx:null, gCtx:null, DPR:1
+};
+
+async function loadP(){
+  try{const r=await window.storage.get('gd-heb-m');if(r&&r.value)S.mastered=new Set(JSON.parse(r.value))}catch(e){}
+  try{const r=await window.storage.get('gd-heb-s');if(r&&r.value)S.score=JSON.parse(r.value)}catch(e){}
+}
+async function saveP(){
+  try{await window.storage.set('gd-heb-m',JSON.stringify([...S.mastered]))}catch(e){}
+  try{await window.storage.set('gd-heb-s',JSON.stringify(S.score))}catch(e){}
+}
+
+// ─── COLOR HELPERS ─────────────────────────────────────────────────────────────
+function cc(cat){return cat==='mother'?'var(--mc)':cat==='double'?'var(--dc)':'var(--sc)'}
+function filtered(){return S.filter==='all'?L:L.filter(x=>x.cat===S.filter)}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────────
+function render(){
+  document.getElementById('mainNav').innerHTML=
+    ['library','letter','quiz'].map(v=>
+      `<button class="nb ${S.view===v?'on':''}" onclick="sv('${v}')">${v==='library'?'Library':v==='letter'?'Study':'Quiz'}</button>`
+    ).join('');
+  const m=document.getElementById('main');
+  m.innerHTML='';
+  m.className='fi';
+  if(S.view==='library')rLib(m);
+  else if(S.view==='letter')rLet(m);
+  else rQuiz(m);
+  if(S.view==='letter')setTimeout(initCv,60);
+}
+
+// ─── LIBRARY ───────────────────────────────────────────────────────────────────
+function rLib(c){
+  const fs=['all','mother','double','simple'];
+  const fb=fs.map(f=>`<button class="fp ${S.filter===f?(f==='all'?'fa':f==='mother'?'fm':f==='double'?'fd':'fs'):''}" onclick="sf('${f}')">${f==='all'?'All 22':f.charAt(0).toUpperCase()+f.slice(1)+'s'}</button>`).join('');
+  const g=filtered().map(l=>{
+    const i=L.indexOf(l);const ms=S.mastered.has(l.name);
+    return `<div class="lc ${l.cat}" onclick="ol(${i})" title="${l.name} · ${l.attr}">
+      <div class="ccs"></div>${ms?'<div class="mb"></div>':''}
+      <div class="ch gp" style="color:${cc(l.cat)}">${l.char}</div>
+      <div class="cn">${l.name}</div>
+      <div class="ca">${l.attr}</div>
+      <div class="cv">${l.val}</div>
+    </div>`;
+  }).join('');
+  c.innerHTML=`
+    <div class="fb"><span class="fl">Category:</span>${fb}</div>
+    <div class="leg">
+      <span><span style="color:var(--mc)">■</span> Mothers (3) — Elements</span>
+      <span><span style="color:var(--dc)">■</span> Doubles (7) — Planets</span>
+      <span><span style="color:var(--sc)">■</span> Simples (12) — Zodiac</span>
+      <span style="margin-left:auto;color:var(--gold)">${S.mastered.size}/22 mastered</span>
+    </div>
+    <div class="grid">${g}</div>`;
+}
+
+// ─── LETTER DETAIL ─────────────────────────────────────────────────────────────
+function rLet(c){
+  const l=L[S.idx];const ms=S.mastered.has(l.name);const col=cc(l.cat);
+  const sh=l.strokes.map((s,i)=>`<div class="shi-row"><span class="shi-n">${i+1}.</span><span>${s}</span></div>`).join('');
+  c.innerHTML=`
+    <div class="dn">
+      <button class="lnb" onclick="nl(-1)">◂</button>
+      <span class="dp">Letter ${S.idx+1} of 22</span>
+      <button class="lnb" onclick="nl(1)">▸</button>
+      <button class="bb" onclick="sv('library')">← Library</button>
+    </div>
+    <div class="dc">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="dh" style="border:1px solid ${col}44;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${col}"></div>
+          <div class="d-heb gp" style="color:${col}">${l.char}</div>
+          <div class="d-name">${l.name}</div>
+          <div class="d-mean">"${l.meaning}"</div>
+          <div class="d-snd">Sound: <span class="se">${l.trans} · ${l.sound}</span></div>
+          <span class="catb ${l.cat}">${l.cat.charAt(0).toUpperCase()+l.cat.slice(1)} Letter</span>
+          <div class="catd">${CATD[l.cat]}</div>
+        </div>
+        <div class="ag">
+          <div class="ai hl"><div class="al">Gematria</div><div class="av" style="font-size:1.55rem;font-family:'Cinzel',serif">${l.val}</div></div>
+          <div class="ai hl"><div class="al">Path</div><div class="av">Path ${l.path}</div></div>
+          <div class="ai"><div class="al">Connects</div><div class="av" style="font-size:.82rem">${l.from} → ${l.to}</div></div>
+          <div class="ai"><div class="al">${l.attype==='element'?'Element':l.attype==='planet'?'Planet':'Zodiac'}</div><div class="av">${l.attr}</div></div>
+          <div class="ai hl" style="grid-column:1/-1"><div class="al">Tarot Trump</div><div class="av">${l.tarot} <span style="font-family:'Cinzel',serif;color:var(--gold);font-size:.78rem">(Key ${l.key})</span></div></div>
+        </div>
+        <div class="gdn">${l.note}</div>
+        <button class="mst-btn" style="color:${ms?'#27ae60':'var(--text-d)'};border-color:${ms?'#27ae60':'var(--bdr)'};background:${ms?'rgba(39,174,96,.1)':'transparent'}" onclick="tm('${l.name}')">${ms?'✓ Mastered — Click to Unmark':'Mark as Mastered'}</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="ws">
+          <div class="st">Writing Practice</div>
+          <div class="cc" id="cvBox">
+            <canvas id="gCv"></canvas>
+            <canvas id="dCv"></canvas>
+          </div>
+          <div class="ccc">
+            <button class="ctb" onclick="clrCv()">✕ Clear</button>
+            <button class="ctb ${S.ghost?'on':''}" onclick="tgGhost()">${S.ghost?'👁 Guide On':'👁 Guide Off'}</button>
+            <button class="ctb" onclick="nl(-1)">← Prev</button>
+            <button class="ctb" onclick="nl(1)">Next →</button>
+          </div>
+          <div style="margin-top:6px">
+            <div style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:7px">Stroke Order</div>
+            <div class="shi">${sh}</div>
+          </div>
+        </div>
+        <div class="qr">
+          <div class="qrl">Quick Reference</div>
+          <div class="qrg">
+            <span class="l">Letter #</span><span class="v">${S.idx+1}</span>
+            <span class="l">Category</span><span class="v" style="color:${col}">${l.cat.charAt(0).toUpperCase()+l.cat.slice(1)}</span>
+            <span class="l">Tarot</span><span class="v">Key ${l.key} · ${l.tarot}</span>
+            <span class="l">Attribution</span><span class="v">${l.attr}</span>
+            <span class="l">Value</span><span class="v" style="font-family:'Cinzel',serif;color:var(--gold)">${l.val}</span>
+            <span class="l">Path ${l.path}</span><span class="v" style="font-size:.78rem">${l.from}→${l.to}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── CANVAS ────────────────────────────────────────────────────────────────────
+function initCv(){
+  const gb=document.getElementById('gCv');const db=document.getElementById('dCv');
+  if(!gb||!db)return;
+  const dpr=window.devicePixelRatio||1;S.DPR=dpr;
+  const SZ=320;
+  [gb,db].forEach(cv=>{
+    cv.width=SZ*dpr;cv.height=SZ*dpr;
+    cv.style.width=SZ+'px';cv.style.height=SZ+'px';
+  });
+  const gc=gb.getContext('2d');gc.scale(dpr,dpr);S.gCtx=gc;
+  const dc=db.getContext('2d');dc.scale(dpr,dpr);S.dCtx=dc;
+  dc.strokeStyle='rgba(201,168,76,.88)';dc.lineWidth=4;dc.lineCap='round';dc.lineJoin='round';
+  dc.fillStyle='rgba(201,168,76,.88)';
+  drawGhost();
+  db.onmousedown=sd;db.onmousemove=md;db.onmouseup=ed;db.onmouseleave=ed;
+  db.ontouchstart=e=>{e.preventDefault();sd(e.touches[0])};
+  db.ontouchmove=e=>{e.preventDefault();md(e.touches[0])};
+  db.ontouchend=ed;
+}
+
+function drawGhost(){
+  const g=S.gCtx;if(!g)return;
+  g.clearRect(0,0,320,320);
+  if(S.ghost){
+    const l=L[S.idx];
+    g.font='bold 230px "Noto Serif Hebrew","Times New Roman",serif';
+    g.fillStyle='rgba(201,168,76,.13)';
+    g.textAlign='center';g.textBaseline='middle';
+    g.fillText(l.char,160,175);
+    g.strokeStyle='rgba(201,168,76,.05)';g.lineWidth=1;
+    g.beginPath();g.moveTo(160,0);g.lineTo(160,320);g.moveTo(0,160);g.lineTo(320,160);g.stroke();
+    g.strokeStyle='rgba(201,168,76,.07)';
+    g.beginPath();g.moveTo(0,205);g.lineTo(320,205);g.stroke();
+  }
+}
+
+function gPos(e){
+  const cv=document.getElementById('dCv');const r=cv.getBoundingClientRect();
+  return{x:e.clientX-r.left,y:e.clientY-r.top};
+}
+function sd(e){S.drawing=true;const p=gPos(e);S.lx=p.x;S.ly=p.y;const d=S.dCtx;if(!d)return;d.beginPath();d.arc(p.x,p.y,2,0,Math.PI*2);d.fill()}
+function md(e){if(!S.drawing||!S.dCtx)return;const p=gPos(e);const d=S.dCtx;d.beginPath();d.moveTo(S.lx,S.ly);d.lineTo(p.x,p.y);d.stroke();S.lx=p.x;S.ly=p.y}
+function ed(){S.drawing=false}
+function clrCv(){if(S.dCtx)S.dCtx.clearRect(0,0,320,320)}
+function tgGhost(){S.ghost=!S.ghost;render()}
+
+// ─── QUIZ ──────────────────────────────────────────────────────────────────────
+function rQuiz(c){
+  const modes=[{id:'flashcard',label:'Flashcards'},{id:'identify',label:'Find Letter'},{id:'name',label:'Name Letter'},{id:'gematria',label:'Gematria'}];
+  const mb=modes.map(m=>`<button class="qmb ${S.qmode===m.id?'on':''}" onclick="sqm('${m.id}')">${m.label}</button>`).join('');
+  const pct=S.score.t>0?Math.round(S.score.c/S.score.t*100):0;
+  let qh='';
+  if(S.qmode==='flashcard')qh=rFC();
+  else if(S.qmode==='identify')qh=rID();
+  else if(S.qmode==='name')qh=rNM();
+  else qh=rGM();
+  c.innerHTML=`<div class="qc">
+    <div class="qms">${mb}</div>
+    <div class="qsb">
+      <span>Score: <span class="sn">${S.score.c}/${S.score.t}</span></span>
+      <span>Accuracy: <span class="sn">${pct}%</span></span>
+      <span>Mastered: <span class="sn">${S.mastered.size}/22</span></span>
+      <button onclick="rsc()" style="background:transparent;border:1px solid var(--bdr);color:var(--text-m);padding:4px 11px;font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.1em;cursor:pointer;text-transform:uppercase">Reset</button>
+    </div>
+    ${qh}
+  </div>`;
+}
+
+function curL(){if(!S.qqueue.length)shuf();return L[S.qqueue[S.qcur%S.qqueue.length]]}
+function shuf(){const a=L.map((_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}S.qqueue=a;S.qcur=0}
+function genCh(correct){const o=L.filter(x=>x.name!==correct.name).sort(()=>Math.random()-.5).slice(0,3);return[...o,correct].sort(()=>Math.random()-.5)}
+
+function rFC(){
+  const l=curL();const col=cc(l.cat);
+  return`<div class="fcs" onclick="flip()">
+    <div class="fc ${S.qrev?'flipped':''}">
+      <div class="cff" style="border-color:${col}44">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${col}"></div>
+        <div class="fl-ch" style="color:${col}">${l.char}</div>
+        <div class="fl-p">Tap to reveal</div>
+      </div>
+      <div class="cfb" style="border-color:${col}44">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${col}"></div>
+        <div class="b-name">${l.name} — "${l.meaning}"</div>
+        <div class="big">
+          <div class="ba"><div class="bal">Sound</div><div class="bav">${l.trans} · ${l.sound}</div></div>
+          <div class="ba"><div class="bal">Value</div><div class="bav" style="font-family:'Cinzel',serif;color:var(--gold)">${l.val}</div></div>
+          <div class="ba"><div class="bal">Category</div><div class="bav" style="color:${col}">${l.cat.charAt(0).toUpperCase()+l.cat.slice(1)}</div></div>
+          <div class="ba"><div class="bal">Attribution</div><div class="bav">${l.attr}</div></div>
+          <div class="ba" style="grid-column:1/-1"><div class="bal">Tarot</div><div class="bav">${l.tarot} · Key ${l.key}</div></div>
+          <div class="ba" style="grid-column:1/-1"><div class="bal">Path ${l.path}</div><div class="bav" style="font-size:.82rem">${l.from} → ${l.to}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${S.qrev?`<div class="fcc">
+    <button class="qb ok" onclick="mk(true)">✓ Got It</button>
+    <button class="qb rev" onclick="mk(false)">Review Again</button>
+  </div>`:`<div style="text-align:center;color:var(--text-m);font-size:.8rem;font-style:italic;margin-top:6px">Click the card to reveal</div>`}`;
+}
+
+function flip(){S.qrev=!S.qrev;render()}
+function mk(ok){if(ok){S.score.c++;S.mastered.add(curL().name)}S.score.t++;S.qcur++;S.qrev=false;saveP();render()}
+
+function rID(){
+  if(!S.choices.length||S.answered==='done'){S.choices=genCh(curL());S.answered=null}
+  const l=curL();const ch=S.choices;
+  const qt=S.qcur%3;
+  let qm,qs;
+  if(qt===0){qm=l.name;qs=`Which Hebrew letter is "${l.name}"?`}
+  else if(qt===1){qm=l.tarot;qs=`Key ${l.key} · Which letter corresponds?`}
+  else{qm=l.attr;qs=`${l.attype==='element'?'Element':l.attype==='planet'?'Planet':'Sign'}: ${l.attr}`}
+  const chs=ch.map(x=>{
+    let cls='cho';
+    if(S.answered!==null){if(x.name===l.name)cls+=' ok';else if(x.name===S.answered)cls+=' ng'}
+    return`<button class="${cls}" onclick="anID('${x.name}')" ${S.answered!==null?'disabled':''}>
+      <span style="color:${cc(x.cat)}">${x.char}</span>
+      <span class="chsub">${x.name}</span>
+    </button>`;
+  }).join('');
+  return`<div class="qq"><div class="ql">Identify the Letter</div><div class="qm">${qm}</div><div class="qs">${qs}</div></div>
+  <div class="cg">${chs}</div>
+  ${S.answered!==null?`<div class="ans"><span class="ans-txt" style="color:${S.answered===l.name?'#27ae60':'var(--crimson-b)'}">${S.answered===l.name?'✓ Correct!':'✗ That was '+l.name+' ('+l.char+')'}</span><button class="qb nx" onclick="nq()">Next →</button></div>`:''}`;
+}
+
+function anID(n){
+  const l=curL();S.answered=n;
+  if(n===l.name){S.score.c++;S.mastered.add(l.name)}
+  S.score.t++;saveP();render();
+}
+
+function rNM(){
+  if(!S.choices.length||S.answered==='done'){S.choices=genCh(curL());S.answered=null}
+  const l=curL();const ch=S.choices;
+  const chs=ch.map(x=>{
+    let cls='cho nc';
+    if(S.answered!==null){if(x.name===l.name)cls+=' ok';else if(x.name===S.answered)cls+=' ng'}
+    return`<button class="${cls}" onclick="anNM('${x.name}')" ${S.answered!==null?'disabled':''}>
+      ${x.name}<br><span style="font-size:.68rem;color:var(--text-m)">"${x.meaning}"</span>
+    </button>`;
+  }).join('');
+  return`<div class="qq"><div class="ql">Name this Letter</div><div class="q-heb" style="color:${cc(l.cat)}">${l.char}</div><div class="qs">Select the correct name</div></div>
+  <div class="cg">${chs}</div>
+  ${S.answered!==null?`<div class="ans"><span class="ans-txt" style="color:${S.answered===l.name?'#27ae60':'var(--crimson-b)'}">${S.answered===l.name?'✓ Correct!':'✗ This is '+l.name+', "'+l.meaning+'"'}</span><button class="qb nx" onclick="nq()">Next →</button></div>`:''}`;
+}
+
+function anNM(n){
+  const l=curL();S.answered=n;
+  if(n===l.name){S.score.c++;S.mastered.add(l.name)}
+  S.score.t++;saveP();render();
+}
+
+function rGM(){
+  if(!S.choices.length||S.answered==='done'){S.choices=genCh(curL());S.answered=null}
+  const l=curL();const ch=S.choices;
+  const chs=ch.map(x=>{
+    let cls='cho';
+    if(S.answered!==null){if(x.name===l.name)cls+=' ok';else if(x.name===S.answered)cls+=' ng'}
+    return`<button class="${cls}" onclick="anGM('${x.name}')" ${S.answered!==null?'disabled':''}>
+      <span style="color:${cc(x.cat)}">${x.char}</span>
+      <span class="chsub">${x.name} · ${x.val}</span>
+    </button>`;
+  }).join('');
+  return`<div class="qq"><div class="ql">Gematria Value</div><div class="qm" style="font-size:2.8rem;letter-spacing:.05em">${l.val}</div><div class="qs">Which letter has gematria value ${l.val}?</div></div>
+  <div class="cg">${chs}</div>
+  ${S.answered!==null?`<div class="ans"><span class="ans-txt" style="color:${S.answered===l.name?'#27ae60':'var(--crimson-b)'}">${S.answered===l.name?'✓ Correct!':'✗ That was '+l.name+' ('+l.char+') = '+l.val}</span><button class="qb nx" onclick="nq()">Next →</button></div>`:''}`;
+}
+
+function anGM(n){
+  const l=curL();S.answered=n;
+  if(n===l.name){S.score.c++;S.mastered.add(l.name)}
+  S.score.t++;saveP();render();
+}
+
+function nq(){S.qcur++;S.answered=null;S.choices=[];render()}
+
+// ─── ACTIONS ───────────────────────────────────────────────────────────────────
+function sv(v){S.view=v;S.answered=null;if(v==='quiz')shuf();render();window.scrollTo(0,0)}
+function sf(f){S.filter=f;render()}
+function ol(i){S.idx=i;S.view='letter';render();window.scrollTo(0,0)}
+function nl(d){S.idx=(S.idx+d+22)%22;clrCv();render()}
+function tm(n){if(S.mastered.has(n))S.mastered.delete(n);else S.mastered.add(n);saveP();render();setTimeout(initCv,60)}
+function sqm(m){S.qmode=m;S.answered=null;S.choices=[];S.qrev=false;shuf();render()}
+function rsc(){S.score={c:0,t:0};saveP();render()}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────────
+loadP().then(()=>render());
+</script>
+</body>
+</html>
